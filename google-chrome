@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if grep -i amazon <<< "$@" || grep -i netflix <<< "$@"
+then
+echo in "$@" > /tmp/out
+	for i in $@; do
+	    if [[ $i =~ ^http ]]
+	    then
+	      urls="$urls $i"
+	    fi
+	done
+
+	firefox $urls
+else
+echo not in "$@" > /tmp/out
+	google-chrome-real $*
+fi
+
